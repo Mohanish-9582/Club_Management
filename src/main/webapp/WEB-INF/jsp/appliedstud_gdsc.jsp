@@ -202,33 +202,8 @@
                 /*border:none;*/
             }
 
-        </style>
-        
-        <script>               
-               const searchFun = () =>{
-                   let filter = document.getElementById('myInput').value;
-                   
-                   let myTable = document.getElementById('myTable')
-                   
-                   let tr = myTable.getElementsByTagName('tr');
-                   for(var i=0; i<tr.length; i++){
-                       let td = tr[i].getElementsByTagName('td')[0];
-                       if(td){
-                           let textvalue = td.textContent || td.innerHTML;
-                           
-                           if(textvalue.indexOf(filter) > -1){
-                               tr[i].style.display = "";
-                           }else{
-                               tr[i].style.display = "none";
-                           }
-                       }
-                   }
-                   
 
-               }
-               
-           
-           </script>
+        </style>
     </head>
     <section id="title">
 
@@ -264,35 +239,23 @@
     <body>
         <div class="container">
             <div class="list"><!-- comment -->
-                <h1>CLUBS <b></b></h1>
-                <h2><a href="LiteraryClub">Literary Club</a></h2>
-                <h2><a href="Invictus">Invictus</a></h2>
-                <h2><a href="GDSC">Google Developer Student Club</a></h2>
-                <h2><a href="AV">Ajanvriksha</a></h2>
-                <h2><a href="AMC">Axes Math Club</a></h2>
-                <h2><a href="GS">Girls script</a></h2>           
-            </div> 
+            <h1>${Clubname} <b></b></h1>
+            <h2><a href="addevents">Add Events</a></h2>
+            <h2><a href="#">Upcoming Events</a></h2>
+            <h2><a href="#">Applied Students</a></h2>
+        
+        </div> 
             <div class="info-contain">
-                <div class="container-fluid">
-                    <form class="d-flex" role="search">              
-                        <input class="form-control me-2" type="search" placeholder="Search by Club name" aria-label="Search" id="myInput" onkeyup="searchFun()">
-                        <button><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
-                <form action="register" method="get">
-                    <button>Register for the Club</button>
-                </form>
-
-
+                
                 <h2 id="clubName" name="clubName"></h2>
 
-                <table id="myTable" lign="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
+                <table align="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
                     <thead>
                         <tr>
-                            <th>CLUB NAME</th>
-                            <th>CO-ORDINATOR</th>
-                            <th>DOMAIN</th>
-                            <th>OTHER</th>
+                            <th>Name</th>
+                            <th>Contact No.</th>
+                            <th>Branch</th>
+                            <th>PRN</th>
                             <th>E-MAIL</th>
                             <!--<th>Register</th>-->
 
@@ -307,7 +270,7 @@
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
 
                                 Statement st = con.createStatement();
-                                ResultSet rs = st.executeQuery("SELECT cname, ccdname, domain, other, email FROM clubregister");
+                                ResultSet rs = st.executeQuery("SELECT fname, phone, branch, PRN, email FROM cregister where club='GDSC'");
                                 while (rs.next()) {
                         %>           
                         <tr>
@@ -342,26 +305,6 @@
 
 
     </body>
-
-    <!--    <script>
-            function registerClub(button) {
-                // Retrieve the details related to the clicked register button
-                var row = button.parentNode.parentNode;
-                var clubName = row.cells[0].innerText;
-                var coordinator = row.cells[1].innerText;
-                var domain = row.cells[2].innerText;
-                var other = row.cells[3].innerText;
-                var email = row.cells[4].innerText;
-    
-                // Display the details in the console
-                console.log("Club Name: " + clubName);
-                console.log("Coordinator: " + coordinator);
-                console.log("Domain: " + domain);
-                console.log("Other: " + other);
-                console.log("Email: " + email);
-                document.getElementById("clubName").innerHTML = "You are Registered at : " + clubName;
-            }
-        </script>-->
 
 </html>
 

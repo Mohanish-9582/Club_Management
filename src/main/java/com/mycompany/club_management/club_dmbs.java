@@ -99,7 +99,8 @@ public class club_dmbs {
                 s = rs.getString("pass");
                 name = rs.getString("fname");
             }
-            if (m.equals(a) && l.equals(b) && s.equals(c)) {
+            if (m.equals(a) && l.equals(b) && s.equals(c)) 
+            {
                 object.addAttribute("UserName", name);
                 object.addAttribute("UserPRN", m);
                 object.addAttribute("UserEmail", l);
@@ -107,7 +108,9 @@ public class club_dmbs {
                 prn=m;
                 email=l;
                 return "welcomeuser";
-            } else {
+            } 
+            else 
+            {
                 return "error";
             }
         } catch (Exception k) {
@@ -411,6 +414,56 @@ stmt.executeUpdate();
     public String alldisplay() {
         return "display_allevent";
     }
-
     
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String regi() {
+        return "register";
+    }
+
+    @RequestMapping(value = "/cregister", method = RequestMethod.POST)
+    public String cregister(
+            @RequestParam("a") String a,
+            @RequestParam("b") String b,
+            @RequestParam("c") String c,
+            @RequestParam("d") String d,
+            @RequestParam("e") String e,
+            @RequestParam("f") String f,
+//            @RequestParam("g") String g,
+            org.springframework.ui.Model object1) 
+    {
+        
+        System.out.println("I am from Processform");
+//                         System.out.println(a+b+c+d+e+f+g);
+
+        object1.addAttribute("msg", "record inserted Successfully ");
+        try 
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+
+//step2 create  the connection object  
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO cregister VALUES(?,?,?,?,?,?)");
+
+            stmt.setString(1, a);
+            stmt.setString(2, b);//1 specifies the first parameter in the query  
+            stmt.setString(3, c);
+            stmt.setString(4, d);
+            stmt.setString(5, e);
+            stmt.setString(6, f);
+//            stmt.setString(7, g);
+
+            stmt.executeUpdate();
+        } catch (Exception K) 
+        {
+            System.out.println(K.getMessage());
+        }
+        return "stud_club_register";
+    }
+    
+    @RequestMapping(value = "/appliedstud", method = RequestMethod.GET)
+    public String appliedstud(Model model3) {
+        model3.addAttribute("cname", clubname);
+        return "appliedstud_gdsc";
+    } 
+
 }

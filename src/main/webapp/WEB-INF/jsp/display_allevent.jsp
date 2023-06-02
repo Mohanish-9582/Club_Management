@@ -156,7 +156,7 @@
             }
             h3 {
                 color: black;
-               
+
                 font-size: 4rem;
                 font-style: normal;
             }
@@ -195,9 +195,32 @@
                 align-content: center;
                 text-align: justify-all;
             }
-
-
         </style>
+        <script>
+            const searchFun = () => {
+                let filter = document.getElementById('myInput').value;
+
+                let myTable = document.getElementById('myTable')
+
+                let tr = myTable.getElementsByTagName('tr');
+                for (var i = 0; i < tr.length; i++) {
+                    let td = tr[i].getElementsByTagName('td')[0];
+                    if (td) {
+                        let textvalue = td.textContent || td.innerHTML;
+
+                        if (textvalue.indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+
+            }
+
+
+        </script>
     </head>
     <section id="title">
 
@@ -210,7 +233,7 @@
             </a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                 <ul class="navbar-nav ml-auto px-lg-4">
+                <ul class="navbar-nav ml-auto px-lg-4">
                     <li class="nav-item px-3">
                         <a class="nav-link" href="tp">Home</a>
                     </li>          
@@ -218,7 +241,7 @@
                     <li class="nav-item px-3">
                         <a class="nav-link" href="displayallclub">All Upcoming Events</a>
                     </li>
-                    
+
                     <li class="nav-item px-3">
                         <a class="nav-link" href="start">Logout</a>
                     </li> 
@@ -234,97 +257,108 @@
                                     </form>  
                                     </li>
                                     </ul>
-            </div>
-        </nav>
-    </section>
-    <body>
-        <div class="container">
-            <div class="list"><!-- comment -->
-                <h1>CLUBS <b></b></h1>
-                <h2><a href="LiteraryClub">Literary Club</a></h2>
-                <h2><a href="Invictus">Invictus</a></h2>
-                <h2><a href="GDSC">Google Developer Student Club</a></h2>
-                <h2><a href="AV">Ajanvriksha</a></h2>
-                <h2><a href="AMC">Axes Math Club</a></h2>
-                <h2><a href="GS">Girls script</a></h2>           
-            </div> 
-            <div class="info-contain">
-                <!--<form action="clubRegister" method="post">-->
-                    <h2 id="clubName" name="clubName"></h2>
-                    <!--<button type="submit" style="background-color:transparent; ">action</button>-->
-                <!--</form>-->
-                <table align="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
-                    <thead>
-                    <h3>Upcoming Events</h3>
-                        <tr>
-                            <th>CLUB NAME</th>
-                            <th>EVENT NAME</th>
-                            <th>VENUE</th>
-                            <th>DATE</th>
-                            <th>TIME</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            try {
-                                Class.forName("com.mysql.jdbc.Driver");
+                                    </div>
+                                    </nav>
+                                    </section>
+                                    <body>
+                                        <div class="container">
+                                            <div class="list"><!-- comment -->
+                                                <h1>CLUBS <b></b></h1>
+                                                <h2><a href="LiteraryClub">Literary Club</a></h2>
+                                                <h2><a href="Invictus">Invictus</a></h2>
+                                                <h2><a href="GDSC">Google Developer Student Club</a></h2>
+                                                <h2><a href="AV">Ajanvriksha</a></h2>
+                                                <h2><a href="AMC">Axes Math Club</a></h2>
+                                                <h2><a href="GS">Girls script</a></h2>           
+                                            </div> 
+                                            <div class="info-contain">
+                                                <div class="container-fluid">
+                                                    <form class="d-flex" role="search">              
+                                                        <input class="form-control me-2" type="search" placeholder="Search by Club name" aria-label="Search" id="myInput" onkeyup="searchFun()">
+                                                        <button><i class="bi bi-search"></i></button>
+                                                    </form>
+                                                </div>
+                                                <!--<form action="clubRegister" method="post">-->
+                                                <h2 id="clubName" name="clubName"></h2>
+                                                <!--<button type="submit" style="background-color:transparent; ">action</button>-->
+                                                <!--</form>-->
 
-                                //step2 create  the connection object  
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
+                                                <table id="myTable" align="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
+                                                    <thead>
+                                                    <h3>Upcoming Events</h3>
+                                                    <div class="container-fluid">
 
-                                Statement st = con.createStatement();
-                                ResultSet rs = st.executeQuery("SELECT * from event");
-                                while (rs.next()) {
-                        %>           
-                        <tr>
-                            <td><%=rs.getString(1)%></td>
-                            <td><%=rs.getString(2)%></td>
-                            <td><%=rs.getString(3)%></td>
-                            <td><%=rs.getString(4)%></td>
-                            <td><%=rs.getString(5)%></td>
+                                                    </div>
+
+                                                    <tr>
+                                                        <th>CLUB NAME</th>
+                                                        <th>EVENT NAME</th>
+                                                        <th>VENUE</th>
+                                                        <th>DATE</th>
+                                                        <th>TIME</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%
+                                                            try {
+                                                                Class.forName("com.mysql.jdbc.Driver");
+
+                                                                //step2 create  the connection object  
+                                                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
+
+                                                                Statement st = con.createStatement();
+                                                                ResultSet rs = st.executeQuery("SELECT * from event");
+                                                                while (rs.next()) {
+                                                        %>           
+                                                        <tr>
+                                                            <td><%=rs.getString(1)%></td>
+                                                            <td><%=rs.getString(2)%></td>
+                                                            <td><%=rs.getString(3)%></td>
+                                                            <td><%=rs.getString(4)%></td>
+                                                            <td><%=rs.getString(5)%></td>
 
 
-                            <!--<td><button onclick="registerClub(this)">Register</button></td>-->
+                                                            <!--<td><button onclick="registerClub(this)">Register</button></td>-->
 
 
-                        </tr>
+                                                        </tr>
 
-                        <%
-                                }
-                            } catch (Exception e) {
-                                System.out.println(e.getMessage());
-                            }
+                                                        <%
+                                                                }
+                                                            } catch (Exception e) {
+                                                                System.out.println(e.getMessage());
+                                                            }
 
-                        %>
-                    </tbody>
+                                                        %>
+                                                    </tbody>
 
-            </div>
+                                            </div>
 
-        </div>
+                                        </div>
 
-    </body>
-    <script>
-        function registerClub(button) {
-            // Retrieve the details related to the clicked register button
-            var row = button.parentNode.parentNode;
-            var clubName = row.cells[0].innerText;
-            var coordinator = row.cells[1].innerText;
-            var domain = row.cells[2].innerText;
-            var other = row.cells[3].innerText;
-            var email = row.cells[4].innerText;
+                                    </body>
+                                    <script>
+                                        function registerClub(button) {
+                                            // Retrieve the details related to the clicked register button
+                                            var row = button.parentNode.parentNode;
+                                            var clubName = row.cells[0].innerText;
+                                            var coordinator = row.cells[1].innerText;
+                                            var domain = row.cells[2].innerText;
+                                            var other = row.cells[3].innerText;
+                                            var email = row.cells[4].innerText;
 
-            // Display the details in the console
-            console.log("Club Name: " + clubName);
-            console.log("Coordinator: " + coordinator);
-            console.log("Domain: " + domain);
-            console.log("Other: " + other);
-            console.log("Email: " + email);
-            document.getElementById("clubName").innerHTML = "You are Registered at : " + clubName;
-        }
-    </script>
+                                            // Display the details in the console
+                                            console.log("Club Name: " + clubName);
+                                            console.log("Coordinator: " + coordinator);
+                                            console.log("Domain: " + domain);
+                                            console.log("Other: " + other);
+                                            console.log("Email: " + email);
+                                            document.getElementById("clubName").innerHTML = "You are Registered at : " + clubName;
+                                        }
+                                    </script>
 
-</html>
+                                    </html>
 
 
 

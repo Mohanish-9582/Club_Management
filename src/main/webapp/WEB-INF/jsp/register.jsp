@@ -155,7 +155,7 @@
                 font-style: normal;
             }
             h3 {
-                color: white;
+                color: black;
                 font-size: 4rem;
                 font-style: normal;
             }
@@ -164,15 +164,15 @@
                 margin-top: 6em;
             }
             .info-contain{
+                padding-left: 20px;
                 margin: 5%;
                 margin-left: 9%;
+                background-color: whitesmoke;
                 /*min-height: 50px;*/
                 min-width: 100%;
-                align-items: center;
-                text-align: center;
-                /*padding: 10px;*/
-                /*        padding-left: 20px;
-                        padding-right: 20px;*/
+                /*                align-items: center;
+                                text-align: center;*/
+
                 font-size: 23px;
 
             }
@@ -202,33 +202,8 @@
                 /*border:none;*/
             }
 
-        </style>
-        
-        <script>               
-               const searchFun = () =>{
-                   let filter = document.getElementById('myInput').value;
-                   
-                   let myTable = document.getElementById('myTable')
-                   
-                   let tr = myTable.getElementsByTagName('tr');
-                   for(var i=0; i<tr.length; i++){
-                       let td = tr[i].getElementsByTagName('td')[0];
-                       if(td){
-                           let textvalue = td.textContent || td.innerHTML;
-                           
-                           if(textvalue.indexOf(filter) > -1){
-                               tr[i].style.display = "";
-                           }else{
-                               tr[i].style.display = "none";
-                           }
-                       }
-                   }
-                   
 
-               }
-               
-           
-           </script>
+        </style>
     </head>
     <section id="title">
 
@@ -273,67 +248,56 @@
                 <h2><a href="GS">Girls script</a></h2>           
             </div> 
             <div class="info-contain">
-                <div class="container-fluid">
-                    <form class="d-flex" role="search">              
-                        <input class="form-control me-2" type="search" placeholder="Search by Club name" aria-label="Search" id="myInput" onkeyup="searchFun()">
-                        <button><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
-                <form action="register" method="get">
-                    <button>Register for the Club</button>
-                </form>
 
+                <form action="cregister" method="post">
+                    <h3>Fill All Information</h3>
+                    <br>
+                    <div class="forms-inputs mb-4"><span>Name :  </span>
+                        <input class="form-name" type="text" placeholder="Hidden Mystery" name="a" required="">
+                    </div>
 
-                <h2 id="clubName" name="clubName"></h2>
+                    <div class="forms-inputs mb-4"><span>Mobile : </span>
+                        <input class="form-username" autocomplete="off" type="number" placeholder="9860082523" name="b" required="">
+                    </div>
 
-                <table id="myTable" lign="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
-                    <thead>
-                        <tr>
-                            <th>CLUB NAME</th>
-                            <th>CO-ORDINATOR</th>
-                            <th>DOMAIN</th>
-                            <th>OTHER</th>
-                            <th>E-MAIL</th>
-                            <!--<th>Register</th>-->
+                    <div class="forms-inputs mb-4"> Branch <select name="c" required="">
+                            <option value="">Select</option>
+                            <option value="comp">Computer</option>
+                            <option value="entc">ENTC</option>
+                            <option value="etx">ETX</option>
+                            <option value="chem">Chemical</option>
+                            <option value="mech">Mechanical</option>
+                            <option value="civil">Civil</option>
+                            <option value="oth">Other</option>                                  
+                        </select>
+                    </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            try {
-                                Class.forName("com.mysql.jdbc.Driver");
+                    <div class="forms-inputs mb-4">Select the Club: <select name="d" required="">
+                            <option value="">Select</option>                         
 
-                                //step2 create  the connection object  
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
+                            <option value="AV">AjaanVriksha</option>
+                            <option value="CC">Codechef</option>
+                            <option value="GDSC">GDSC</option>
+                            <option value="GS">Girls Script</option>
+                            <option value="Invictus">Invictus</option>
+                            <option value="LC">Literary Club</option>                                    
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
 
-                                Statement st = con.createStatement();
-                                ResultSet rs = st.executeQuery("SELECT cname, ccdname, domain, other, email FROM clubregister");
-                                while (rs.next()) {
-                        %>           
-                        <tr>
-                            <td><%=rs.getString(1)%></td>
-                            <td><%=rs.getString(2)%></td>
-                            <td><%=rs.getString(3)%></td>
-                            <td><%=rs.getString(4)%></td>
-                            <td><%=rs.getString(5)%></td>
+                    <div class="forms-inputs mb-4"><span>PRN No. :  </span>
+                        <input class="form-name" type="number" placeholder="202100000024" name="e" required="">
+                    </div>
 
+                    <div class="forms-inputs mb-4"><span>E-mail : </span>
+                        <input class="form-username" autocomplete="off" type="email" placeholder="abc@123.com" name="f" required="">
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" value="Register"> 
+                        <input type="reset" value="Clear">
+                    </div>
 
-                            <!--<td><button onclick="registerClub(this)">Register</button></td>-->
-
-
-                        </tr>
-
-
-
-                        <%
-                                }
-                            } catch (Exception e) {
-                                System.out.println(e.getMessage());
-                            }
-
-                        %>
-                    </tbody>
-
+                </form>                  
 
             </div>
 
@@ -343,25 +307,7 @@
 
     </body>
 
-    <!--    <script>
-            function registerClub(button) {
-                // Retrieve the details related to the clicked register button
-                var row = button.parentNode.parentNode;
-                var clubName = row.cells[0].innerText;
-                var coordinator = row.cells[1].innerText;
-                var domain = row.cells[2].innerText;
-                var other = row.cells[3].innerText;
-                var email = row.cells[4].innerText;
-    
-                // Display the details in the console
-                console.log("Club Name: " + clubName);
-                console.log("Coordinator: " + coordinator);
-                console.log("Domain: " + domain);
-                console.log("Other: " + other);
-                console.log("Email: " + email);
-                document.getElementById("clubName").innerHTML = "You are Registered at : " + clubName;
-            }
-        </script>-->
+
 
 </html>
 
