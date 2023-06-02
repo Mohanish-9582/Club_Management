@@ -343,26 +343,6 @@
 
     </body>
 
-    <!--    <script>
-            function registerClub(button) {
-                // Retrieve the details related to the clicked register button
-                var row = button.parentNode.parentNode;
-                var clubName = row.cells[0].innerText;
-                var coordinator = row.cells[1].innerText;
-                var domain = row.cells[2].innerText;
-                var other = row.cells[3].innerText;
-                var email = row.cells[4].innerText;
-    
-                // Display the details in the console
-                console.log("Club Name: " + clubName);
-                console.log("Coordinator: " + coordinator);
-                console.log("Domain: " + domain);
-                console.log("Other: " + other);
-                console.log("Email: " + email);
-                document.getElementById("clubName").innerHTML = "You are Registered at : " + clubName;
-            }
-        </script>-->
-
 </html>
 
 
