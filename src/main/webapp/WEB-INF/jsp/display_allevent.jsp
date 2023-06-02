@@ -239,7 +239,7 @@
                     </li>          
 
                     <li class="nav-item px-3">
-                        <a class="nav-link" href="displayallclub">All Upcoming Events</a>
+                        <a class="nav-link" href="alclub">All Clubs</a>
                     </li>
 
                     <li class="nav-item px-3">

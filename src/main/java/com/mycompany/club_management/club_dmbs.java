@@ -20,17 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class club_dmbs {
-    String username="";
-    String prn="";
-    String email="";
-    String clubname="";
-    String clubemail="";
-    
+
+    String username = "";
+    String prn = "";
+    String email = "";
+    String clubname = "";
+    String clubemail = "";
 
     @RequestMapping("/home")
     public String index() {
         return "hello";
     }
+
     @RequestMapping(value = "/tp", method = RequestMethod.GET)
     public String tp() {
         return "trial";
@@ -80,8 +81,7 @@ public class club_dmbs {
     public String wlcmuser(@RequestParam("prn") String a,
             @RequestParam("email") String b,
             @RequestParam("password") String c,
-            Model object) 
-    {
+            Model object) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
@@ -99,18 +99,15 @@ public class club_dmbs {
                 s = rs.getString("pass");
                 name = rs.getString("fname");
             }
-            if (m.equals(a) && l.equals(b) && s.equals(c)) 
-            {
+            if (m.equals(a) && l.equals(b) && s.equals(c)) {
                 object.addAttribute("UserName", name);
                 object.addAttribute("UserPRN", m);
                 object.addAttribute("UserEmail", l);
-                username=name;
-                prn=m;
-                email=l;
+                username = name;
+                prn = m;
+                email = l;
                 return "welcomeuser";
-            } 
-            else 
-            {
+            } else {
                 return "error";
             }
         } catch (Exception k) {
@@ -119,7 +116,6 @@ public class club_dmbs {
         return "error";
     }
 
-    
     @RequestMapping(value = "/wlcmclub", method = RequestMethod.POST)
     public String wlcmclub(@RequestParam("club") String a,
             @RequestParam("email") String b,
@@ -147,8 +143,8 @@ public class club_dmbs {
 //                object1.addAttribute("UserPRN", name);
                 object2.addAttribute("Clubname", cn);
                 object2.addAttribute("UserEmail", cl);
-                clubname=cn;
-                clubemail=cl;
+                clubname = cn;
+                clubemail = cl;
                 return "welcomeclub";
             } else {
                 return "error";
@@ -159,7 +155,6 @@ public class club_dmbs {
         return "error";
     }
 
-
     @RequestMapping(value = "/stud", method = RequestMethod.POST)
     public String Handleform(
             @RequestParam("a") String a,
@@ -169,8 +164,7 @@ public class club_dmbs {
             @RequestParam("e") String e,
             @RequestParam("f") String f,
             @RequestParam("g") String g,
-            org.springframework.ui.Model object1) 
-    {
+            org.springframework.ui.Model object1) {
         System.out.println("I am from Processform");
 //                         System.out.println(a+b+c+d+e+f+g);
 
@@ -271,121 +265,110 @@ public class club_dmbs {
         model.addAttribute("cname", clubname);
         return "adevent";
     }
-    
-   
+
     @RequestMapping(value = "/Profile", method = RequestMethod.POST)
-    public String profile( Model object) {
+    public String profile(Model object) {
         try {
-            
+
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM studregister WHERE PRN=?");
             stmt.setString(1, prn);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
-            {
-            object.addAttribute("name",rs.getString("fname"));
-            object.addAttribute("phone",rs.getString("phone")); 
-            object.addAttribute("prn",rs.getString("PRN"));
-            object.addAttribute("branch",rs.getString("branch"));
-            object.addAttribute("gender",rs.getString("gender"));
-            object.addAttribute("email",rs.getString("email"));
-            object.addAttribute("pass",rs.getString("pass")); 
+            while (rs.next()) {
+                object.addAttribute("name", rs.getString("fname"));
+                object.addAttribute("phone", rs.getString("phone"));
+                object.addAttribute("prn", rs.getString("PRN"));
+                object.addAttribute("branch", rs.getString("branch"));
+                object.addAttribute("gender", rs.getString("gender"));
+                object.addAttribute("email", rs.getString("email"));
+                object.addAttribute("pass", rs.getString("pass"));
             }
-            
+
             return "stud_profile";
         } catch (Exception K) {
             System.out.println(K.getMessage());
         }
         return "stud_profile";
-    } 
-    
+    }
+
     @RequestMapping(value = "/clubprofile", method = RequestMethod.POST)
-    public String clubprofile( Model object2) {
+    public String clubprofile(Model object2) {
         try {
-            
+
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM clubregister WHERE cname=?");
             stmt.setString(1, clubname);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
-            {
-            object2.addAttribute("cname",rs.getString("cname"));
-            object2.addAttribute("ccdname",rs.getString("ccdname")); 
-            object2.addAttribute("domain",rs.getString("domain"));
-            object2.addAttribute("other",rs.getString("other"));
-            object2.addAttribute("cemail",rs.getString("email"));
-            object2.addAttribute("cpass",rs.getString("pass")); 
+            while (rs.next()) {
+                object2.addAttribute("cname", rs.getString("cname"));
+                object2.addAttribute("ccdname", rs.getString("ccdname"));
+                object2.addAttribute("domain", rs.getString("domain"));
+                object2.addAttribute("other", rs.getString("other"));
+                object2.addAttribute("cemail", rs.getString("email"));
+                object2.addAttribute("cpass", rs.getString("pass"));
             }
-            
+
             return "club_profile";
         } catch (Exception K) {
             System.out.println(K.getMessage());
         }
         return "club_profile";
-    } 
-    
+    }
+
     @RequestMapping(value = "/clubRegister", method = RequestMethod.POST)
-    public String UserRegister(@RequestParam("clubName")String club,Model obj) {
-        obj.addAttribute("clubName",club);
+    public String UserRegister(@RequestParam("clubName") String club, Model obj) {
+        obj.addAttribute("clubName", club);
         return "raw";
     }
-    
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteprofile(@RequestParam("UserPRN") String a, Model object) {
         try {
-            
+
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
             PreparedStatement stmt = con.prepareStatement("delete FROM studregister WHERE PRN=?");
             stmt.setString(1, a);
-            
-             stmt.executeUpdate();
+
+            stmt.executeUpdate();
         } catch (Exception K) {
             System.out.println(K.getMessage());
         }
         return "delete";
-    } 
-    
-    
-    @RequestMapping(value="/updatepass",method=RequestMethod.POST)
-    public  String Handleformm
-            ( @RequestParam("UserPRN") String  prn,
-            @RequestParam("pass") String b,
-          Model object1) 
-    {      
-        object1.addAttribute("msg","record updateed Successfully ");
-      try 
-        {           
-            Class.forName("com.mysql.jdbc.Driver");  
-  
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms?characterEncoding=utf8","root","Monu@2003");
-    PreparedStatement stmt=con.prepareStatement("update studregister set pass=? where PRN=?");  
-  
-stmt.setString(1,b);
-stmt.setString(2,prn);   
+    }
 
-stmt.executeUpdate(); 
-        }
-          catch(Exception k)
-        {
+    @RequestMapping(value = "/updatepass", method = RequestMethod.POST)
+    public String Handleformm(@RequestParam("UserPRN") String prn,
+            @RequestParam("pass") String b,
+            Model object1) {
+        object1.addAttribute("msg", "record updateed Successfully ");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms?characterEncoding=utf8", "root", "Monu@2003");
+            PreparedStatement stmt = con.prepareStatement("update studregister set pass=? where PRN=?");
+
+            stmt.setString(1, b);
+            stmt.setString(2, prn);
+
+            stmt.executeUpdate();
+        } catch (Exception k) {
             System.out.println(k.getMessage());
         }
-        
+
         return "update";
     }
-            
-    @RequestMapping(value = "/registerevent", method= RequestMethod.POST)
+
+    @RequestMapping(value = "/registerevent", method = RequestMethod.POST)
     public String addevent(
             @RequestParam("e") String e,
             @RequestParam("a") String a,
             @RequestParam("b") String b,
             @RequestParam("c") String c,
             @RequestParam("d") String d,
-          
-            org.springframework.ui.Model object1) 
-    {
+            org.springframework.ui.Model object1) {
         System.out.println("I am from Processform");
 
         object1.addAttribute("msg", "record inserted Successfully ");
@@ -400,7 +383,6 @@ stmt.executeUpdate();
             stmt.setString(3, b);
             stmt.setString(4, c);
             stmt.setString(5, d);
-            
 
             stmt.executeUpdate();
         } catch (Exception K) {
@@ -408,13 +390,12 @@ stmt.executeUpdate();
         }
         return "eventregistermessage";
     }
-    
-    
+
     @RequestMapping(value = "/displayallclub", method = RequestMethod.GET)
     public String alldisplay() {
         return "display_allevent";
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String regi() {
         return "register";
@@ -428,16 +409,14 @@ stmt.executeUpdate();
             @RequestParam("d") String d,
             @RequestParam("e") String e,
             @RequestParam("f") String f,
-//            @RequestParam("g") String g,
-            org.springframework.ui.Model object1) 
-    {
-        
+            //            @RequestParam("g") String g,
+            org.springframework.ui.Model object1) {
+
         System.out.println("I am from Processform");
 //                         System.out.println(a+b+c+d+e+f+g);
 
         object1.addAttribute("msg", "record inserted Successfully ");
-        try 
-        {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
 
 //step2 create  the connection object  
@@ -453,17 +432,16 @@ stmt.executeUpdate();
 //            stmt.setString(7, g);
 
             stmt.executeUpdate();
-        } catch (Exception K) 
-        {
+        } catch (Exception K) {
             System.out.println(K.getMessage());
         }
         return "stud_club_register";
     }
-    
+
     @RequestMapping(value = "/appliedstud", method = RequestMethod.GET)
     public String appliedstud(Model model3) {
         model3.addAttribute("cname", clubname);
         return "appliedstud_gdsc";
-    } 
+    }
 
 }
