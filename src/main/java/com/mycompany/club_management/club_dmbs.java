@@ -82,6 +82,7 @@ public class club_dmbs {
             @RequestParam("email") String b,
             @RequestParam("password") String c,
             Model object) {
+        object.addAttribute("UserName",username);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
@@ -226,17 +227,20 @@ public class club_dmbs {
     }
 
     @RequestMapping(value = "/LiteraryClub", method = RequestMethod.GET)
-    public String litclub() {
+    public String litclub(Model m) {
+        m.addAttribute("UserName",username);
         return "/club/Club_Literary";
     }
 
     @RequestMapping(value = "/Invictus", method = RequestMethod.GET)
-    public String invclub() {
+    public String invclub(Model m) {
+        m.addAttribute("UserName",username);
         return "/club/Club_Invictus";
     }
 
     @RequestMapping(value = "/GDSC", method = RequestMethod.GET)
-    public String gdscclub() {
+    public String gdscclub(Model m) {
+        m.addAttribute("UserName",username);
         return "/club/Club_GDSC";
     }
 
@@ -397,7 +401,8 @@ public class club_dmbs {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String regi() {
+    public String regi(Model m) {
+        m.addAttribute("prn",prn);
         return "register";
     }
 
@@ -409,6 +414,7 @@ public class club_dmbs {
             @RequestParam("d") String d,
             @RequestParam("e") String e,
             @RequestParam("f") String f,
+            @RequestParam("g") String g,
             //            @RequestParam("g") String g,
             org.springframework.ui.Model object1) {
 
@@ -421,7 +427,7 @@ public class club_dmbs {
 
 //step2 create  the connection object  
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO cregister VALUES(?,?,?,?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO cregister VALUES(?,?,?,?,?,?,?)");
 
             stmt.setString(1, a);
             stmt.setString(2, b);//1 specifies the first parameter in the query  
@@ -429,6 +435,8 @@ public class club_dmbs {
             stmt.setString(4, d);
             stmt.setString(5, e);
             stmt.setString(6, f);
+            stmt.setString(7, g);
+            
 //            stmt.setString(7, g);
 
             stmt.executeUpdate();

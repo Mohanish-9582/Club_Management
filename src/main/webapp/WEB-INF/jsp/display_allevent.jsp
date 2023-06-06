@@ -195,6 +195,17 @@
                 align-content: center;
                 text-align: justify-all;
             }
+            .custom-button {
+                background: none;
+                border: none;
+                padding-top: 0.5em;
+                font-size: inherit;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            .custom-button:hover{
+               text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            }
         </style>
         <script>
             const searchFun = () => {
@@ -234,9 +245,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto px-lg-4">
-                    <li class="nav-item px-3">
-                        <a class="nav-link" href="tp">Home</a>
-                    </li>          
+                    <form action="wlcm" method="post">
+                        <input type="hidden" value="${prn}" name="prn">
+                        <input type="hidden" value="${email}" name="email"><!-- comment -->
+                        <input type="hidden" value="${pass}" name="password">
+                        <input type="submit" value="Home" class="custom-button">
+                    </form>         
 
                     <li class="nav-item px-3">
                         <a class="nav-link" href="alclub">All Clubs</a>
@@ -308,7 +322,7 @@
                                                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
 
                                                                 Statement st = con.createStatement();
-                                                                ResultSet rs = st.executeQuery("SELECT * from event");
+                                                                ResultSet rs = st.executeQuery("SELECT * from event order by e_date asc");
                                                                 while (rs.next()) {
                                                         %>           
                                                         <tr>

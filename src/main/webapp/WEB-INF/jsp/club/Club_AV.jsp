@@ -192,6 +192,18 @@
                 align-content: center;
                 text-align: justify-all;
             }
+            
+            .custom-button {
+                background: none;
+                border: none;
+                padding-top: 0.5em;
+                font-size: inherit;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            .custom-button:hover{
+               text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            }
 
 
         </style>
@@ -209,9 +221,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto px-lg-4">
                     <li class="nav-item px-3">
-                        <a class="nav-link" href="tp">Home</a>
-                    </li>          
+                        <form action="wlcm" method="post">
+                            <input type="hidden" value="${prn}" name="prn">
+                            <input type="hidden" value="${email}" name="email"><!-- comment -->
+                            <input type="hidden" value="${pass}" name="password">
+                            <input type="submit" value="Home" class="custom-button">
+                        </form>
+                    </li>         
 
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="displayallclub">All Upcoming Events</a>
+                    </li>
                     <li class="nav-item px-3">
                         <a class="nav-link" href="alclub">All Clubs</a>
                     </li>

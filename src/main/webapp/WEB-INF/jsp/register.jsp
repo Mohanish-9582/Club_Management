@@ -4,6 +4,7 @@
     Author     : HP
 --%>
 
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -205,6 +206,32 @@
 
         </style>
     </head>
+
+    <%
+        String prn = (String) request.getAttribute("prn");
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+//step2 create  the connection object  
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
+        PreparedStatement stmt = con.prepareStatement("Select * from studregister where prn=?;");
+        stmt.setString(1, prn);
+        ResultSet rs = stmt.executeQuery();
+
+        String name = null;
+        String phn = null;
+        String brn = null;
+        String gen = null;
+        String email = null;
+        while (rs.next()) {
+            name = rs.getString("fname");
+            phn = rs.getString("phone");
+            brn = rs.getString("branch");
+            gen = rs.getString("gender");
+            email = rs.getString("email");
+        }
+
+    %>
     <section id="title">
 
         <!-- Nav Bar -->
@@ -253,56 +280,55 @@
                     <h3>Fill All Information</h3>
                     <br>
                     <div class="forms-inputs mb-4"><span>Name :  </span>
-                        <input class="form-name" type="text" placeholder="Hidden Mystery" name="a" required="">
+                        <input class="form-name" type="text" name="a" value="<%=name%>" readonly>
                     </div>
 
                     <div class="forms-inputs mb-4"><span>Mobile : </span>
-                        <input class="form-username" autocomplete="off" type="number" placeholder="9860082523" name="b" required="">
+                        <input class="form-username"  value="<%=phn%>" name="b" readonly>
                     </div>
 
-                    <div class="forms-inputs mb-4"> Branch <select name="c" required="">
-                            <option value="">Select</option>
-                            <option value="comp">Computer</option>
-                            <option value="entc">ENTC</option>
-                            <option value="etx">ETX</option>
-                            <option value="chem">Chemical</option>
-                            <option value="mech">Mechanical</option>
-                            <option value="civil">Civil</option>
-                            <option value="oth">Other</option>                                  
-                        </select>
+                     <div class="forms-inputs mb-4"><span>Branch : </span>
+                        <input class="form-username"value="<%=brn%>" name="c" readonly>
                     </div>
-
-                    <div class="forms-inputs mb-4">Select the Club: <select name="d" required="">
-                            <option value="">Select</option>                         
-
-                            <option value="AV">AjaanVriksha</option>
-                            <option value="CC">Codechef</option>
-                            <option value="GDSC">GDSC</option>
-                            <option value="GS">Girls Script</option>
-                            <option value="Invictus">Invictus</option>
-                            <option value="LC">Literary Club</option>                                    
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
+                    
                     <div class="forms-inputs mb-4"><span>PRN No. :  </span>
-                        <input class="form-name" type="number" placeholder="202100000024" name="e" required="">
+                                <input class="form-name" value="<%=prn%>" name="d" readonly>
                     </div>
 
                     <div class="forms-inputs mb-4"><span>E-mail : </span>
-                        <input class="form-username" autocomplete="off" type="email" placeholder="abc@123.com" name="f" required="">
+                                <input class="form-username" value="<%=email%>" name="e" readonly>
                     </div>
-                    <div class="buttons">
-                        <input type="submit" value="Register"> 
-                        <input type="reset" value="Clear">
+                    
+                    <div class="forms-inputs mb-4"><span>Gender : </span>
+                                <input class="form-username" value="<%=gen%>" name="f" readonly>
                     </div>
 
-                </form>                  
+                            <div class="forms-inputs mb-4">Select the Club: <select name="g" required="">
+                                    <option value="">Select</option>                         
+
+                                    <option value="AV">AjaanVriksha</option>
+                                    <option value="CC">Codechef</option>
+                                    <option value="GDSC">GDSC</option>
+                                    <option value="GS">Girls Script</option>
+                                    <option value="Invictus">Invictus</option>
+                                    <option value="LC">Literary Club</option>                                    
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                   
+
+                            
+                            <div class="buttons">
+                                <input type="submit" value="Register"> 
+                                <input type="reset" value="Clear">
+                            </div>
+
+                            </form>                  
+
+                    </div>
+
 
             </div>
-
-
-        </div>
 
 
     </body>
