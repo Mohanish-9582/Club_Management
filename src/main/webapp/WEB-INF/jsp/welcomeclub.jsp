@@ -243,7 +243,7 @@
       <div class="list"><!-- comment -->
             <h1>${Clubname} <b></b></h1>
             <h2><a href="addevents">Add Events</a></h2>
-            <h2><a href="#">Upcoming Events</a></h2>
+            <h2><a href="upcominggdsc">Upcoming Events</a></h2>
             <h2><a href="appliedstud">Applied Students</a></h2>
 <!--            <h2><a href="AV">Ajanvriksha</a></h2>
             <h2><a href="AMC">Axes Math Club</a></h2>

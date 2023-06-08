@@ -1,9 +1,13 @@
 <%-- 
-    Document   : navbar
-    Created on : 02-May-2023, 6:51:30 am
-    Author     : INDRAJIT
+    Document   : display_particular_club
+    Created on : 30-May-2023, 10:55:14 pm
+    Author     : HP
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -58,6 +62,7 @@
                 background-image: url("https://getmyuni.azureedge.net/college-image/big/mit-academy-of-engineering-mitae-pune.jpg");
                 background-size: cover;
                 /*background-color: #D5D2CD;*/
+
             }
 
             .navbar {
@@ -134,6 +139,7 @@
             }
             .list{
                 display:inline-block;
+                /*position:fixed;*/
                 border:3px solid transparent;
                 background-color: #F7BD1B;
                 width:337px;
@@ -160,17 +166,13 @@
             .info-contain{
                 margin: 5%;
                 margin-left: 9%;
-                min-height: 50px;
+                /*min-height: 50px;*/
                 min-width: 100%;
                 align-items: center;
                 text-align: center;
-                border:2px solid #28A745;
-                border: 4px inset black;
-                padding: 10px;
-                padding-left: 25px;
-                padding-right: 25px;
-                background-color:#d0b2e0;
-                border-radius: 3px;
+                /*padding: 10px;*/
+                /*        padding-left: 20px;
+                        padding-right: 20px;*/
                 font-size: 23px;
 
             }
@@ -182,33 +184,26 @@
 
             }
             .box{
+                border: 2px solid black;
+                /*margin: -753px 381px;*/
                 padding-left:10px;
                 padding-right:10px;
                 min-width:70%;
+                background-color:#9d9bc5;
+                border-radius: 8px;
                 font-size: 23px;
-                padding-bottom: 20px;
-            }
-            input[type="time"] {
-                padding: 5px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
+                align-content: center;
+                text-align: justify-all;
             }
             button{
-                padding-top: 10px;
-                background-color: transparent;
-                border:none;
-                color: Black;
-                font-weight: bold;
+                background-color: red;
+                border-radius: 2px;
+                border-style: inset;
+                /*border:none;*/
             }
 
 
         </style>
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
-
     </head>
     <section id="title">
 
@@ -223,9 +218,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto px-lg-4">
                     <li class="nav-item px-3">
-                        <button onclick="goBack()">Home</button>
+                        <a class="nav-link" href="#">Home</a>
                     </li>          
 
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="alclub">All Clubs</a>
+                    </li>
                     <li class="nav-item px-3">
                         <a class="nav-link" href="start">Logout</a>
                     </li> 
@@ -241,53 +239,74 @@
     <body>
         <div class="container">
             <div class="list"><!-- comment -->
-                <h1> <b>${cname}</b></h1>
-                <h2><a href="addevents">Add Events</a></h2>
-                <h2><a href="upcominggdsc">Upcoming Events</a></h2>
-                <h2><a href="appliedstud">Applied Students</a></h2>
-
-                <!--            <h2><a href="AV">Ajanvriksha</a></h2>
-                            <h2><a href="AMC">Axes Math Club</a></h2>
-                            <h2><a href="GS">Girls script</a></h2>           -->
-            </div> 
+            <h1>${cname} <b></b></h1>
+            <h2><a href="addevents">Add Events</a></h2>
+            <h2><a href="upcominggdsc">Upcoming Events</a></h2>
+            <h2><a href="appliedstud">Applied Students</a></h2>
+        
+        </div> 
             <div class="info-contain">
-                <form action="registerevent" method="post">
-                    <h3>Add Events</h3>
-                    <div class="box">
+                
+                <h2 id="clubName" name="clubName"></h2>
 
-                        Name of the Club
-                        <input type="text"  required="" name="e" value="${cname}" readonly >                
-                    </div>
-                    <div class="box">
+                <table align="center" border="10" border width="100" style="width:100%" class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Venue</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <!--<th>E-MAIL</th>-->
+                            <!--<th>Register</th>-->
 
-                        Name of the events:
-                        <input type="text" placeholder="Enter name of the event" required="" name="a">                
-                    </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            try {
+                                Class.forName("com.mysql.jdbc.Driver");
 
-                    <div class="box">
+                                //step2 create  the connection object  
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubdbms", "root", "Monu@2003");
 
-                        Venue :
-                        <input type="text" placeholder="Enter venue of the event" required="" name="b">                
-                    </div>
+                                Statement st = con.createStatement();
+                                ResultSet rs = st.executeQuery("SELECT ename, venue, e_date, e_time FROM event where clubname='GDSC'");
+                                while (rs.next()) {
+                        %>           
+                        <tr>
+                            <td><%=rs.getString(1)%></td>
+                            <td><%=rs.getString(2)%></td>
+                            <td><%=rs.getString(3)%></td>
+                            <td><%=rs.getString(4)%></td>
+                            <!--<td><%=rs.getString(5)%></td>-->
 
-                    <div class="box">
-                        Date:
-                        <input type="date" placeholder="Date of event"required=""name="c">
 
-                    </div>
-                    <div class="box">
+                            <!--<td><button onclick="registerClub(this)">Register</button></td>-->
 
-                        <label for="myTime">Select a time:</label>
-                        <input type="time" id="myTime"  name="d">               
-                    </div>
-                    <input type="submit" value="Register for the Event">
-                </form>
+
+                        </tr>
+
+
+
+                        <%
+                                }
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+
+                        %>
+                    </tbody>
+
 
             </div>
+
 
         </div>
 
 
-    </div>
-</body>
+    </body>
+
 </html>
+
+
+

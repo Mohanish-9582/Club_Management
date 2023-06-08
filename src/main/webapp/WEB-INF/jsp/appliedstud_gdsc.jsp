@@ -218,7 +218,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto px-lg-4">
                     <li class="nav-item px-3">
-                        <a class="nav-link" href="tp">Home</a>
+                        <a class="nav-link" href="#">Home</a>
                     </li>          
 
                     <li class="nav-item px-3">
@@ -239,7 +239,7 @@
     <body>
         <div class="container">
             <div class="list"><!-- comment -->
-            <h1>${Clubname} <b></b></h1>
+            <h1>${cname} <b></b></h1>
             <h2><a href="addevents">Add Events</a></h2>
             <h2><a href="#">Upcoming Events</a></h2>
             <h2><a href="#">Applied Students</a></h2>

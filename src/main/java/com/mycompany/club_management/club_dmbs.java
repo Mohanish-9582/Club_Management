@@ -451,5 +451,11 @@ public class club_dmbs {
         model3.addAttribute("cname", clubname);
         return "appliedstud_gdsc";
     }
+    
+    @RequestMapping(value = "/upcominggdsc", method = RequestMethod.GET)
+    public String upcominggdsc(Model model4) {
+        model4.addAttribute("cname", clubname);
+        return "upcoming_gdsc";
+    }
 
 }
