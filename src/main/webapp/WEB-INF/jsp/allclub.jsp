@@ -314,11 +314,6 @@
                             <td><%=rs.getString(3)%></td>
                             <td><%=rs.getString(4)%></td>
                             <td><%=rs.getString(5)%></td>
-
-
-                            <!--<td><button onclick="registerClub(this)">Register</button></td>-->
-
-
                         </tr>
 
 

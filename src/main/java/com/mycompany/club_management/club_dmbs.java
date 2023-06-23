@@ -81,7 +81,8 @@ public class club_dmbs {
     public String wlcmuser(@RequestParam("prn") String a,
             @RequestParam("email") String b,
             @RequestParam("password") String c,
-            Model object) {
+            Model object) 
+    {
         object.addAttribute("UserName",username);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
